@@ -37,6 +37,8 @@ class SymbToken
 end
 
 class UnknownToken
+  attr_reader :value
+
   def initialize(value)
     @value = value
   end
@@ -54,5 +56,16 @@ class TimeToken
 
   def to_s
     "{time}"
+  end
+end
+
+class IntervalToken
+  def initialize(values)
+    @values = values
+    @values.extend(TokensStringRepresentation)
+  end
+
+  def to_s
+    "{interval}"
   end
 end

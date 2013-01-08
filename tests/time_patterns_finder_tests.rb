@@ -90,4 +90,17 @@ class TimePatternsFinderTests < MiniTest::Unit::TestCase
 
     assert_equal("{word}{word}{word}{time}{word}{word}{word}{word}{number}{symbol}{number}{word}", result.to_s)
   end
+
+  def test_simple_interval_pattern
+    #todo implement different postfixes, like m, min, minutes, h, hour, hours
+    input = "Meet with friend at 1pm for 30mins"
+
+    parser = Parser.new
+    tokens = parser.parse input
+
+    pattern = SimpleIntervalPattern.new
+    result = pattern.find_and_update tokens
+
+    assert_equal("{word}{word}{word}{word}{number}{word}{word}{interval}", result.to_s)
+  end
 end

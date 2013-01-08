@@ -9,19 +9,19 @@ class TimePattern
   def find_and_update(tokens)
     return unless tokens.to_s.include? @pattern
 
-    tokens.each_cons(@number_of_pattern_tokens) do |tokens_pair|
-      break unless tokens_pair.length == @number_of_pattern_tokens
+    tokens.each_cons(@number_of_pattern_tokens) do |tokens_set|
+      break unless tokens_set.length == @number_of_pattern_tokens
 
-      tokens_pair.extend(TokensStringRepresentation)
+      tokens_set.extend(TokensStringRepresentation)
 
-      if tokens_pair.to_s == @pattern
-        next unless valid? tokens_pair
+      if tokens_set.to_s == @pattern
+        next unless valid? tokens_set
 
-        time_token = TimeToken.new tokens_pair
+        time_token = TimeToken.new tokens_set
         
         #warning, modifying collection during its enumeration
-        index = tokens.index tokens_pair[0]
-        tokens.delete_if {|token| tokens_pair.include? token}
+        index = tokens.index tokens_set[0]
+        tokens.delete_if {|token| tokens_set.include? token}
         tokens.insert index, time_token
       end
     end
