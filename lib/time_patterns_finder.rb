@@ -1,7 +1,6 @@
 require_relative 'helper_modules'
 require_relative 'tokens'
 require_relative 'time_patterns'
-require_relative 'interval_patterns'
 
 class TimePatternsFinder
   def find_and_update(tokens)
