@@ -114,3 +114,33 @@ class SimpleIntervalPattern < TimePattern
     end
   end
 end
+
+class SimpleTimeEndingPattern < TimePattern
+  def initialize
+    super(%w[{word} {time}], SimpleTimeEndingToken)
+  end
+
+  def valid?(tokens_pair)
+    tokens_pair.first.value == "at"
+  end
+end
+
+class IntervalEndingPattern < TimePattern
+  def initialize
+    super(%w[{word} {time} {word} {interval}], IntervalEndingToken)
+  end
+
+  def valid?(tokens_quadruple)
+    tokens_quadruple[0].value == "at" and tokens_quadruple[2].value == "for"
+  end
+end
+
+class IntervalTimeEndingPattern < TimePattern
+  def initialize
+    super(%w[{word} {time} {word} {time}], IntervalTimeEndingToken)
+  end
+
+  def valid?(tokens_quadruple)
+    tokens_quadruple[0].value == "from" and tokens_quadruple[2].value == "to"
+  end
+end

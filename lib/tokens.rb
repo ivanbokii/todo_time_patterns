@@ -69,3 +69,36 @@ class IntervalToken
     "{interval}"
   end
 end
+
+class SimpleTimeEndingToken
+  def initialize(values)
+    @values = values
+    @values.extend(TokensStringRepresentation)
+  end
+
+  def to_s
+    "{ending_form}"
+  end
+end
+
+class IntervalEndingToken
+  def initialize(values)
+    @values = values
+    @values.extend(TokensStringRepresentation)
+  end
+
+  def to_s
+    "{ending_form}"
+  end
+end
+
+class IntervalTimeEndingToken
+  def initialize(values)
+    @values = values
+    @values.extend(TokensStringRepresentation)
+  end
+
+  def to_s
+    "{ending_form}"
+  end
+end
