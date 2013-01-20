@@ -10,6 +10,9 @@ class ParserTests < MiniTest::Unit::TestCase
     parser = Parser.new
     tokens = parser.parse input
 
+    indexes = tokens.map { |t| t.start_index }
+
     assert_equal(expected_tokens, tokens.to_s)
+    assert_equal([0, 4, 10, 13, 15, 16], indexes)
   end
 end

@@ -8,8 +8,9 @@ class TimePattern
   end
 
   def find_and_update(tokens)
-    return unless tokens.to_s.include? @pattern
+    return tokens unless tokens.to_s.include? @pattern
 
+    tokens_clone = tokens.clone
     tokens.each_cons(@number_of_pattern_tokens) do |tokens_set|
       break unless tokens_set.length == @number_of_pattern_tokens
 
@@ -21,11 +22,11 @@ class TimePattern
         time_token = @token_class.new tokens_set
         
         #warning, modifying collection during its enumeration
-        substitute_tokens tokens_set, time_token, tokens
+        substitute_tokens tokens_set, time_token, tokens_clone
       end
     end
 
-    tokens
+    tokens_clone
   end
 
   private
@@ -43,7 +44,8 @@ class TimeWithModifierPattern < TimePattern
 
   def valid?(tokens_pair)
     hour, modifier = tokens_pair.map { |token| token.value }
-    (0..12).include?(hour) and ["am", "pm"].include?(modifier)
+    (0..12).include?(hour) and ["am", "pm"].include?(modifier) and not
+      (hour == 0 and modifier == "pm")
   end
 end
 
@@ -115,9 +117,9 @@ class SimpleIntervalPattern < TimePattern
   end
 end
 
-class SimpleTimeEndingPattern < TimePattern
+class TimeEndingPattern < TimePattern
   def initialize
-    super(%w[{word} {time}], SimpleTimeEndingToken)
+    super(%w[{word} {time}], TimeEndingToken)
   end
 
   def valid?(tokens_pair)

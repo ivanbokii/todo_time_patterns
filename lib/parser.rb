@@ -26,13 +26,14 @@ class Parser
       end
 
       @parser_checks.each do |check_method, check_class|
+        token_start_index = i
         while input[i] != nil and input[i] != " " and input[i].send check_method
           buffer << input[i]
           i += 1
         end
 
         unless buffer.empty?
-          tokens << (check_class.new buffer)
+          tokens << (check_class.new buffer, token_start_index)
           buffer = ""
         end
       end
