@@ -9,16 +9,30 @@ class CommandLine
     time_patterns_finder = TimePatternsFinder.new
     tokens_with_time_patterns = time_patterns_finder.find_and_update tokens
 
-    generate_result tokens_with_time_patterns
+    result = generate_result(tokens_with_time_patterns, input)
+
+    result
   end
 
-  def generate_result(tokens)
+  def remove_from_input(input, tokens)
+    
+  end
+
+  def generate_result(tokens, input)
     time_token = tokens.find {|token| token.to_s == "{ending_form}"}
 
-    {
-      hours: time_token.hours,
-      minutes: time_token.minutes,
-      interval: time_token.interval
-    }
+    unless time_token.nil?
+      time_token = tokens.find {|token| token.to_s == "{ending_form}"}
+      to_remove = input.slice(time_token.start_index, time_token.end_index - time_token.start_index + 2)
+
+      {
+        hours: time_token.hours,
+        minutes: time_token.minutes,
+        interval: time_token.interval,
+        result_string: input.sub(to_remove, "").strip
+      }
+    else
+      nil
+    end
   end
 end

@@ -235,6 +235,7 @@ class IntervalTimeEndingToken
     @values = values
     @values.extend(TokensStringRepresentation)
 
+    set_start_and_end_indexes values
     set_time_and_interval values
   end
 
