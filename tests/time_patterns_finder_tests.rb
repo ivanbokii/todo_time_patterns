@@ -1,12 +1,12 @@
 require 'minitest/autorun'
 
-require_relative '../lib/parser'
-require_relative '../lib/time_patterns_finder'
+require_relative '../lib/todo_time_patterns/parser'
+require_relative '../lib/todo_time_patterns/time_patterns_finder'
 
 class TimePatternsFinderTests < MiniTest::Unit::TestCase
   def setup
-    @parser = Parser.new
-    @patterns_finder = TimePatternsFinder.new
+    @parser = TimePatterns::Parser.new
+    @patterns_finder = TimePatterns::TimePatternsFinder.new
   end
 
   def test_simple_form

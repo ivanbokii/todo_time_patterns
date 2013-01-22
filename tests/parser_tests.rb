@@ -1,13 +1,13 @@
 require 'minitest/autorun'
 
-require_relative '../lib/parser'
+require_relative '../lib/todo_time_patterns/parser'
 
 class ParserTests < MiniTest::Unit::TestCase
   def test_parse_input_into_tokens
     input = "Buy bread at 17:00"
     expected_tokens = "{word}{word}{word}{number}{symbol}{number}"
 
-    parser = Parser.new
+    parser = TimePatterns::Parser.new
     tokens = parser.parse input
 
     indexes = tokens.map { |t| t.start_index }
