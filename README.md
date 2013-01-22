@@ -55,6 +55,6 @@ Setup
 -
 ```ruby
 gem install 'todo_time_patterns'
-```ruby
+```
 
     
